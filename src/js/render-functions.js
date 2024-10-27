@@ -1,37 +1,24 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-// Ініціалізуємо SimpleLightbox для галереї
-let lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
-
-// Функція для очищення галереї
-export function clearGallery(galleryElement) {
-  galleryElement.innerHTML = '';
-}
-
-// Функція для створення картки зображення
-export function createImageCard(image) {
-  return `
-    <li class="gallery-item">
-      <a href="${image.largeImageURL}" class="gallery-link">
+export function renderGallery(images) {
+  const gallery = document.querySelector('.gallery');
+  const markup = images
+    .map(image => {
+      return `
+      <a href="${image.largeImageURL}" class="gallery-item">
         <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+        <div class="info">
+          <p>Likes: ${image.likes}</p>
+          <p>Views: ${image.views}</p>
+          <p>Comments: ${image.comments}</p>
+          <p>Downloads: ${image.downloads}</p>
+        </div>
       </a>
-      <div class="info">
-        <p><b>Likes:</b> ${image.likes}</p>
-        <p><b>Views:</b> ${image.views}</p>
-        <p><b>Comments:</b> ${image.comments}</p>
-        <p><b>Downloads:</b> ${image.downloads}</p>
-      </div>
-    </li>
-  `;
+    `;
+    })
+    .join('');
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
-// Функція для відображення галереї
-export function renderGallery(galleryElement, images) {
-  const markup = images.map(createImageCard).join('');
-  galleryElement.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh(); // Оновлюємо SimpleLightbox після рендеру
+export function clearGallery() {
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '';
 }

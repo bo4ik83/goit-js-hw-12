@@ -101,3 +101,40 @@ ul.gallery li {
   font-size: 14px;
   text-align: center;
 }
+
+.load-more-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4e75ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 125px;
+}
+
+.load-more-btn:hover {
+  background-color: #3a5bbf;
+}
+
+.loader {
+  display: none;
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #4e75ff;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
