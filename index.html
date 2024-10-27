@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Work 12</title>
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-Ctwmmamf.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-BrddEoy-.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-CWKLx11g.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-DJeg81W7.css">
   </head>
   <body>
     <header class="header">
@@ -17,21 +19,29 @@
           <use href="/goit-js-hw-12/assets/sprite-E8vg0sBb.svg#logo"></use>
         </svg>
       </a>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-act}" href="./page-2.html">Pixabay Api</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-curr}" href="./page-3.html">Render Functions</a>
-        </li>
-      </ul>
     </nav>
   </div>
 </header>
 
 
     <main>
+      <form id="search-form">
+        <input
+          type="text"
+          name="query"
+          id="search-query"
+          placeholder="Search images..."
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <div id="loader" class="hidden">
+        <p>Loading images, please wait...</p>
+      </div>
+
+      <ul class="gallery"></ul>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
   </body>
 </html>
