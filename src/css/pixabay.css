@@ -1,0 +1,103 @@
+button {
+  background-color: #4e75ff;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 91px;
+  height: 40px;
+  padding: 8px 16px 8px 16px;
+  gap: 10px;
+  border-radius: 8px;
+  opacity: 0px;
+}
+
+button:hover {
+  background-color: #6c8cff;
+}
+
+button:active {
+  background-color: #4e75ff;
+}
+
+button:disabled {
+  width: 432px;
+  height: 88px;
+  top: 412px;
+  left: 28px;
+  gap: 0px;
+  opacity: 0px;
+  background-color: #ef4040;
+  cursor: not-allowed;
+}
+
+#search-query {
+  font-weight: 400;
+  color: #808080;
+  width: 272px;
+  gap: 8px;
+  border-radius: 4px;
+  opacity: 0px;
+  padding: 8px;
+  font-size: 16px;
+  margin-right: 8px;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+#search-form {
+  padding-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+ul.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.gallery li {
+  border: 1px solid #808080;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.info p {
+  margin: 0 10px;
+  font-size: 14px;
+  text-align: center;
+}
