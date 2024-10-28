@@ -49,6 +49,15 @@ button:disabled {
   justify-content: center;
 }
 
+.hidden {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+}
+
 /* Галерея */
 ul.gallery {
   display: flex;
@@ -60,16 +69,15 @@ ul.gallery {
 }
 
 .gallery-item {
-  width: calc((100% - 48px) / 3);
   border-style: solid;
-border-color: #808080;
+  border-color: #808080;
 }
 
 .gallery-item img {
   width: 100%;
   height: auto;
   display: block;
-  border-width: 0px, 1px, 1px, 1px;
+  border-width: 1px;
 }
 
 ul.gallery li {

@@ -16,6 +16,14 @@ export function renderGallery(images) {
     })
     .join('');
   gallery.insertAdjacentHTML('beforeend', markup);
+
+  // Додаємо прокручування після додавання нових зображень
+  const { height: cardHeight } =
+    gallery.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
 
 export function clearGallery() {
