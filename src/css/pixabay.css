@@ -65,6 +65,8 @@ ul.gallery {
   list-style-type: none;
   padding: 0;
   margin-top: 32px;
+  margin-left: 156px;
+  margin-right: 156px;
   gap: 24px;
 }
 
