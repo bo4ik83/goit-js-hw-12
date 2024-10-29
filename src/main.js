@@ -10,9 +10,8 @@ const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.getElementById('load-more');
 const loader = document.getElementById('loader');
 
-let query = '';
-let page = 1;
-const perPage = 15;
+let page = 1; 
+let query = ''; 
 
 // Ініціалізація SimpleLightbox
 let lightbox = new SimpleLightbox('.gallery a', {
@@ -20,43 +19,37 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-// Показуємо або приховуємо лоадер та кнопку "Load more"
-function toggleLoader(showLoader = false) {
-  loader.style.display = showLoader ? 'block' : 'none';
-  loadMoreBtn.style.display = showLoader ? 'none' : 'block';
-}
-
 // Функція для завантаження зображень з API
-async function loadImages() {
-  toggleLoader(true);
-
+async function loadImages(newQuery = '') {
   try {
-    const data = await fetchImages(query, page, perPage);
+    if (newQuery) {
+      page = 1;
+      query = newQuery;
+    }
+    
+    // Показуємо лоадер перед початком запиту
+    loader.style.display = 'block';
 
-    if (data.hits.length === 0 && page === 1) {
+    // Приховуємо кнопку "Load more" до отримання результатів запиту
+    loadMoreBtn.style.display = 'none';
+
+    const response = await fetchImages(query, page);
+
+    if (!response || !response.hits || response.hits.length === 0) {
       iziToast.warning({
-        title: 'No Results',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
+        title: 'Error',
+        message: 'Something went wrong! Please try again later.',
       });
-      loadMoreBtn.style.display = 'none';
-    } else {
-      renderGallery(data.hits);
-      lightbox.refresh();
+      return;
+    }
 
-      // Перевірка на кінець колекції
-      if (page * perPage >= data.totalHits) {
-        loadMoreBtn.style.display = 'none';
-        iziToast.info({
-          title: 'End of Results',
-          message: "We're sorry, but you've reached the end of search results.",
-        });
-      } else {
-        loadMoreBtn.style.display = 'block';
-      }
+    renderGallery(response.hits);
+    lightbox.refresh();
 
-      // Плавне прокручування сторінки
-      smoothScroll();
+    // Якщо є більше зображень для завантаження, показуємо кнопку
+    if (response.hits.length === 15) {
+      loadMoreBtn.style.display = 'block';
+      page++;
     }
   } catch (error) {
     iziToast.error({
@@ -64,7 +57,8 @@ async function loadImages() {
       message: 'Something went wrong! Please try again later.',
     });
   } finally {
-    toggleLoader(false);
+    // Ховаємо лоадер після завершення запиту (успішного чи з помилкою)
+    loader.style.display = 'none';
   }
 }
 
@@ -93,15 +87,12 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  page = 1; // Скидаємо значення сторінки при новому запиті
-  clearGallery(); // Очищуємо галерею
-  loadMoreBtn.style.display = 'none'; // Ховаємо кнопку перед завантаженням
-  loadImages();
+  clearGallery();
+  loadMoreBtn.style.display = 'none';
+  loadImages(query); 
 });
 
 // Обробка кліку на кнопку "Load more"
 loadMoreBtn.addEventListener('click', () => {
-  page += 1;
   loadImages();
 });
-
