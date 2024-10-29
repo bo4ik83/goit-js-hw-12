@@ -104,3 +104,4 @@ loadMoreBtn.addEventListener('click', () => {
   page += 1;
   loadImages();
 });
+
