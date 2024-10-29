@@ -108,6 +108,9 @@ ul.gallery li {
   width: 100%;
   padding: 10px 0;
   box-sizing: border-box;
+  height: 48px;
+  border: 1px;
+  border-width: 1px;
 }
 
 .info p {

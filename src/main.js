@@ -10,8 +10,9 @@ const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.getElementById('load-more');
 const loader = document.getElementById('loader');
 
-let page = 1; 
-let query = ''; 
+let page = 1;
+let query = '';
+let totalHits = 0;
 
 // Ініціалізація SimpleLightbox
 let lightbox = new SimpleLightbox('.gallery a', {
@@ -25,8 +26,10 @@ async function loadImages(newQuery = '') {
     if (newQuery) {
       page = 1;
       query = newQuery;
+      totalHits = 0;
+      clearGallery();
     }
-    
+
     // Показуємо лоадер перед початком запиту
     loader.style.display = 'block';
 
@@ -37,27 +40,38 @@ async function loadImages(newQuery = '') {
 
     if (!response || !response.hits || response.hits.length === 0) {
       iziToast.warning({
-        title: 'Error',
-        message: 'Something went wrong! Please try again later.',
+        title: 'No Results',
+        message: 'No images found for your query. Please try again!',
       });
       return;
+    }
+
+    if (page === 1) {
+      totalHits = response.totalHits;
     }
 
     renderGallery(response.hits);
     lightbox.refresh();
 
-    // Якщо є більше зображень для завантаження, показуємо кнопку
-    if (response.hits.length === 15) {
+    // Якщо завантажені всі доступні зображення, ховаємо кнопку і показуємо повідомлення
+    if (page * 15 >= totalHits) {
+      loadMoreBtn.style.display = 'none';
+      iziToast.info({
+        title: 'End of Results',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    } else {
       loadMoreBtn.style.display = 'block';
       page++;
     }
+
+    smoothScroll();
   } catch (error) {
     iziToast.error({
       title: 'Error',
       message: 'Something went wrong! Please try again later.',
     });
   } finally {
-    // Ховаємо лоадер після завершення запиту (успішного чи з помилкою)
     loader.style.display = 'none';
   }
 }
@@ -77,9 +91,9 @@ function smoothScroll() {
 // Обробка події сабміту форми
 form.addEventListener('submit', event => {
   event.preventDefault();
-  query = event.currentTarget.elements.query.value.trim();
+  const newQuery = event.currentTarget.elements.query.value.trim();
 
-  if (!query) {
+  if (!newQuery) {
     iziToast.error({
       title: 'Error',
       message: 'Please enter a search query!',
@@ -87,9 +101,8 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  clearGallery();
   loadMoreBtn.style.display = 'none';
-  loadImages(query); 
+  loadImages(newQuery);
 });
 
 // Обробка кліку на кнопку "Load more"
