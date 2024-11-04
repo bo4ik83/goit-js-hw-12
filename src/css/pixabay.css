@@ -61,43 +61,31 @@ button:disabled {
 
 /* Галерея */
 ul.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
-  margin-top: 32px;
-  margin-left: 156px;
-  margin-right: 156px;
-  gap: 24px;
-}
-
-.gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  list-style: none;
 }
 
 .gallery-item {
+  display: flex;
+  flex-direction: column; /* Разместим текст под изображением */
+  align-items: center;
   overflow: hidden;
-  border-style: solid;
-  border-color: #808080;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none; /* Убираем подчеркивание у ссылок */
+  color: inherit; /* Наследуем цвет текста */
 }
 
 .gallery-item img {
-  width: 100%;
-  height: 100%;
+  width: 100%; /* Ширина на всю карточку */
+  height: auto; /* Автоматическая высота для сохранения пропорций */
+  aspect-ratio: 16/9; /* Соотношение сторон для одинаковой высоты */
   object-fit: cover;
-  height: auto;
-  display: block;
-  border-width: 1px;
-}
-
-ul.gallery li {
-  border: 1px solid #808080;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-bottom: 1px solid #ccc;
 }
 
 /* Інформація про зображення */
